@@ -1,0 +1,33 @@
+# Code editors
+visual-studio-code
+
+# IDEs
+# rstudio
+
+# Browsers
+# google-chrome
+# firefox
+# brave-browser
+
+# Development tools
+# docker-desktop
+# postman
+# iterm2
+
+# Communication
+# slack
+# zoom
+# discord
+
+# Productivity
+# notion
+# obsidian
+# rectangle  # Window management
+
+# Database clients
+# dbeaver-community
+# tableplus
+
+# Other
+# vlc
+# spotify

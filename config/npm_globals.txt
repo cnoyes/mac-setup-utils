@@ -1,0 +1,17 @@
+# Package managers
+# yarn
+# pnpm
+
+# CLI tools
+# @anthropic-ai/claude-code
+
+# Utilities
+# http-server
+# nodemon
+# prettier
+# eslint
+
+# Frameworks
+# @angular/cli
+# create-react-app
+# vite
