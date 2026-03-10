@@ -46,20 +46,16 @@ for dotfile in "${DOTFILES[@]}"; do
     success "Copied $dotfile to ~/"
 done
 
-# Create .gitconfig if it doesn't exist
+# Create or update .gitconfig
 if [ ! -f "$HOME/.gitconfig" ]; then
     log "Creating .gitconfig..."
-    echo "Enter your git configuration details:"
-    read -p "  Full name: " GIT_NAME
-    read -p "  Email: " GIT_EMAIL
-
-    cat > "$HOME/.gitconfig" << EOF
+    cat > "$HOME/.gitconfig" << 'EOF'
 [user]
-    name = $GIT_NAME
-    email = $GIT_EMAIL
+    name = Clay Noyes
+    email = noyes.clay@gmail.com
 
 [core]
-    editor = code --wait
+    editor = vim
     autocrlf = input
 
 [init]
@@ -80,6 +76,17 @@ if [ ! -f "$HOME/.gitconfig" ]; then
     lg = log --oneline --graph --all --decorate
 EOF
     success "Created ~/.gitconfig"
+else
+    # Ensure user.name and user.email are set
+    if ! git config --global user.name &> /dev/null; then
+        git config --global user.name "Clay Noyes"
+        success "Set git user.name"
+    fi
+    if ! git config --global user.email &> /dev/null; then
+        git config --global user.email "noyes.clay@gmail.com"
+        success "Set git user.email"
+    fi
+    success ".gitconfig already exists (verified user.name and user.email)"
 fi
 
 if [ -d "$BACKUP_DIR" ]; then

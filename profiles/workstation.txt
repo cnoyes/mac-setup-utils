@@ -1,0 +1,9 @@
+# Machine profile: workstation
+# Target: iMac 2020 (primary dev machine)
+PROFILE_NAME="workstation"
+PROFILE_DESC="Full development workstation"
+BREW_FORMULAE_EXTRA="pyenv pyenv-virtualenv r ffmpeg deno tmux yt-dlp coreutils openblas gcc"
+BREW_CASKS_EXTRA="rstudio iterm2"
+CLONE_REPOS=true
+SETUP_KARA_USER=true
+GOOGLE_DRIVE_ACCOUNTS="clay kara"

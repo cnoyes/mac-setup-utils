@@ -13,3 +13,6 @@
 
 # State files
 .mac-setup-state.json
+
+# Machine audit docs (contain IPs, hostnames, serial numbers)
+docs/machine-audit-*.md

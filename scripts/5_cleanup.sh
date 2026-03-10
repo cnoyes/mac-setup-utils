@@ -15,6 +15,16 @@ UNWANTED_APPS=(
     "Pages.app"
 )
 
+# Additional removals for thin clients
+if [ "${PROFILE_NAME:-}" = "thin-client" ]; then
+    UNWANTED_APPS+=(
+        "Android Studio.app"
+        "Sublime Text.app"
+        "RStudio.app"
+        "R.app"
+    )
+fi
+
 # Function to get app size
 get_app_size() {
     local app="$1"

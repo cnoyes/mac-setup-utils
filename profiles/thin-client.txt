@@ -1,0 +1,9 @@
+# Machine profile: thin-client
+# Target: MacBook Pro 2017, MacBook Air 2018
+PROFILE_NAME="thin-client"
+PROFILE_DESC="Lightweight client — heavy work done on ai-lab/iMac via SSH"
+BREW_FORMULAE_EXTRA=""
+BREW_CASKS_EXTRA=""
+CLONE_REPOS=false
+SETUP_KARA_USER=false
+GOOGLE_DRIVE_ACCOUNTS="clay"

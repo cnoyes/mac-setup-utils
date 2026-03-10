@@ -52,6 +52,23 @@ for formula in $FORMULAE; do
     fi
 done
 
+# Install profile-specific formulae
+if [ -n "${BREW_FORMULAE_EXTRA:-}" ]; then
+    log "Installing profile-specific formulae..."
+    for formula in $BREW_FORMULAE_EXTRA; do
+        if brew list "$formula" &> /dev/null; then
+            success "$formula already installed (profile)"
+        else
+            log "Installing $formula (profile)..."
+            if brew install "$formula"; then
+                success "$formula installed"
+            else
+                error "Failed to install $formula"
+            fi
+        fi
+    done
+fi
+
 # Post-installation setup
 
 # Setup pyenv

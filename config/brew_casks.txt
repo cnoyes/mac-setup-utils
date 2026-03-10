@@ -1,33 +1,20 @@
-# Code editors
-visual-studio-code
-
-# IDEs
-# rstudio
-
 # Browsers
-# google-chrome
-# firefox
-# brave-browser
+google-chrome
+firefox
 
-# Development tools
-# docker-desktop
-# postman
-# iterm2
+# Development
+visual-studio-code
+claude
 
-# Communication
-# slack
-# zoom
-# discord
+# Utilities
+tailscale
+rectangle
+vlc
 
 # Productivity
-# notion
-# obsidian
-# rectangle  # Window management
-
-# Database clients
-# dbeaver-community
-# tableplus
-
-# Other
-# vlc
-# spotify
+google-drive
+microsoft-excel
+microsoft-word
+microsoft-powerpoint
+microsoft-outlook
+microsoft-onenote

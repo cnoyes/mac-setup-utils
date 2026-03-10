@@ -1,46 +1,14 @@
-# Core tools
+# Core tools (all machines)
 git
 gh
-
-# Development languages
-python@3.13
-r
-node
-
-# Python version management
-pyenv
-pyenv-virtualenv
+jq
+wget
+curl
+tree
 
 # Node version management
 nvm
 
-# Database tools
-# postgresql
-# mysql
-
-# Command line tools
-wget
-curl
-tree
-jq
-
 # Shell enhancements
 zsh-autosuggestions
 zsh-syntax-highlighting
-
-# Version control
-# git-lfs
-
-# Container tools
-# docker
-# docker-compose
-
-# Cloud CLIs (uncomment as needed)
-# awscli
-# google-cloud-sdk
-# azure-cli
-
-# Other useful tools
-# imagemagick
-# ffmpeg
-# pandoc
