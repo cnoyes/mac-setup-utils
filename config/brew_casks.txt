@@ -11,6 +11,7 @@ tailscale
 rectangle
 vlc
 bitwarden
+iterm2
 
 # Productivity
 google-drive

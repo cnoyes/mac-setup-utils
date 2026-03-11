@@ -3,7 +3,7 @@
 PROFILE_NAME="workstation"
 PROFILE_DESC="Full development workstation"
 BREW_FORMULAE_EXTRA="pyenv pyenv-virtualenv r ffmpeg deno tmux yt-dlp coreutils openblas gcc"
-BREW_CASKS_EXTRA="rstudio iterm2"
+BREW_CASKS_EXTRA="rstudio"
 CLONE_REPOS=true
 SETUP_KARA_USER=true
 GOOGLE_DRIVE_ACCOUNTS="clay kara"
