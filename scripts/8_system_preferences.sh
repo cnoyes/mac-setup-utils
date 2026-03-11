@@ -51,6 +51,24 @@ log "Disabling auto-correct..."
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 success "Auto-correct disabled"
 
+# Tailscale: set hostname and enable auto-start
+if command -v tailscale &>/dev/null; then
+    log "Configuring Tailscale..."
+    # Detect machine hostname for Tailscale
+    MACHINE_NAME=$(scutil --get LocalHostName 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    if [ -n "$MACHINE_NAME" ]; then
+        sudo tailscale set --hostname="$MACHINE_NAME"
+        success "Tailscale: hostname set to $MACHINE_NAME"
+    fi
+    # Enable auto-connect so Tailscale survives sleep/reboot
+    sudo tailscale set --auto-update
+    success "Tailscale: auto-update enabled"
+    log "NOTE: Enable 'Start at Login' in the Tailscale menu bar app"
+    log "NOTE: Use 'tailscale login' (not 'tailscale up') to reauthenticate"
+else
+    warn "Tailscale not installed yet, skipping Tailscale config"
+fi
+
 # Restart affected apps to apply changes
 log "Restarting Dock and Finder to apply changes..."
 killall Dock 2>/dev/null || true
