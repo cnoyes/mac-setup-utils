@@ -33,10 +33,12 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 success "Finder: extensions, path bar, status bar enabled"
 
-# Trackpad: tap to click
+# Trackpad: tap to click, three finger drag
 log "Configuring trackpad..."
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-success "Trackpad: tap to click enabled"
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+success "Trackpad: tap to click, three finger drag enabled"
 
 # Screenshots: save to Downloads
 log "Configuring screenshots..."
