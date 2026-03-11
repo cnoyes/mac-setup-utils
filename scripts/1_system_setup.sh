@@ -6,6 +6,15 @@
 
 log "Installing system prerequisites..."
 
+# Enable Remote Login (SSH)
+if sudo systemsetup -getremotelogin 2>/dev/null | grep -q "Off"; then
+    log "Enabling Remote Login (SSH)..."
+    sudo systemsetup -setremotelogin on
+    success "Remote Login (SSH) enabled"
+else
+    success "Remote Login (SSH) already enabled"
+fi
+
 # Install Xcode Command Line Tools
 if xcode-select -p &> /dev/null; then
     success "Xcode Command Line Tools already installed"
