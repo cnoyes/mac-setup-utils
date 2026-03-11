@@ -77,7 +77,11 @@ log "Configuring trackpad..."
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+# macOS 13+: three finger drag is under Accessibility → Pointer Control
+defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
+defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
 success "Trackpad: tap to click, three finger drag enabled"
+log "NOTE: If three finger drag doesn't work, log out and back in"
 
 # Screenshots: save to Downloads
 log "Configuring screenshots..."
