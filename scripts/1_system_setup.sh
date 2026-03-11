@@ -56,4 +56,11 @@ fi
 if command -v brew &> /dev/null; then
     BREW_VERSION=$(brew --version | head -n1)
     log "Homebrew version: $BREW_VERSION"
+
+    # Fix /usr/local permissions (fresh macOS installs often have root-owned dirs)
+    if [ -d /usr/local/share/man ]; then
+        log "Fixing /usr/local permissions for Homebrew..."
+        sudo chown -R "$(whoami)" /usr/local/share/man
+        success "Homebrew directory permissions fixed"
+    fi
 fi
