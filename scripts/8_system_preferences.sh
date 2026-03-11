@@ -18,13 +18,14 @@ if ! $AUTO_YES; then
     fi
 fi
 
-# Dock: autohide, magnification, tile sizes
+# Dock: autohide, left side, magnification
 log "Configuring Dock..."
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock orientation -string "left"
 defaults write com.apple.dock magnification -bool true
-defaults write com.apple.dock tilesize -int 48
-defaults write com.apple.dock largesize -int 64
-success "Dock: autohide, magnification enabled"
+defaults write com.apple.dock tilesize -int 36
+defaults write com.apple.dock largesize -int 80
+success "Dock: autohide, left side, magnification enabled"
 
 # Finder: show extensions, path bar, status bar
 log "Configuring Finder..."
