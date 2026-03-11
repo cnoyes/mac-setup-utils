@@ -27,6 +27,44 @@ defaults write com.apple.dock tilesize -int 36
 defaults write com.apple.dock largesize -int 80
 success "Dock: autohide, left side, magnification enabled"
 
+# Dock: set app layout
+log "Setting Dock apps..."
+
+# Helper function to add an app to the Dock
+add_dock_app() {
+    local app_path="$1"
+    if [ -d "$app_path" ]; then
+        defaults write com.apple.dock persistent-apps -array-add \
+            "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file://$app_path/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>"
+    fi
+}
+
+# Clear existing dock apps
+defaults write com.apple.dock persistent-apps -array
+
+# Base apps (all machines)
+add_dock_app "/System/Applications/Launchpad.app"
+add_dock_app "/Applications/Firefox.app"
+add_dock_app "/System/Applications/Messages.app"
+add_dock_app "/System/Applications/Notes.app"
+add_dock_app "/Applications/Microsoft Excel.app"
+add_dock_app "/Applications/Microsoft Word.app"
+add_dock_app "/System/Applications/Calendar.app"
+add_dock_app "/System/Applications/Photos.app"
+add_dock_app "/System/Applications/FaceTime.app"
+add_dock_app "/System/Applications/App Store.app"
+add_dock_app "/System/Applications/System Settings.app"
+add_dock_app "/Applications/Google Chrome.app"
+add_dock_app "/Applications/iTerm.app"
+
+# Workstation extras
+if [ "${PROFILE_NAME:-}" = "workstation" ]; then
+    add_dock_app "/Applications/RStudio.app"
+    add_dock_app "/Applications/Visual Studio Code.app"
+fi
+
+success "Dock apps configured"
+
 # Finder: show extensions, path bar, status bar
 log "Configuring Finder..."
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -51,10 +89,11 @@ log "Disabling auto-correct..."
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 success "Auto-correct disabled"
 
-# Dark mode
-log "Enabling dark mode..."
+# Dark mode (auto-switch with sunset/sunrise)
+log "Enabling dark mode with auto-switching..."
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-success "Dark mode enabled"
+defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
+success "Dark mode enabled (auto-switches with sunset/sunrise)"
 
 # Night Shift: sunset to sunrise
 log "Enabling Night Shift..."
