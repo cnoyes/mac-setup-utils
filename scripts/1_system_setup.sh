@@ -9,8 +9,18 @@ log "Installing system prerequisites..."
 # Enable Remote Login (SSH)
 if sudo systemsetup -getremotelogin 2>/dev/null | grep -q "Off"; then
     log "Enabling Remote Login (SSH)..."
-    sudo systemsetup -setremotelogin on
-    success "Remote Login (SSH) enabled"
+    if sudo systemsetup -setremotelogin on 2>/dev/null; then
+        success "Remote Login (SSH) enabled"
+    else
+        warn "Could not enable Remote Login automatically (requires Full Disk Access)"
+        log "Please enable manually: System Settings → General → Sharing → Remote Login"
+        read -p "  Press Enter once Remote Login is enabled..." -r
+        if sudo systemsetup -getremotelogin 2>/dev/null | grep -q "On"; then
+            success "Remote Login (SSH) confirmed enabled"
+        else
+            warn "Remote Login still off — enable it later for SSH access"
+        fi
+    fi
 else
     success "Remote Login (SSH) already enabled"
 fi
