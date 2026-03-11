@@ -66,4 +66,18 @@ EOF
     success "SSH config created: $CONFIG_FILE"
 fi
 
+# Copy SSH key to other machines
+log "Distributing SSH key to other machines..."
+log "This allows passwordless SSH between your machines."
+HOSTS=("ai-lab" "imac" "macbook-pro" "macbook-air")
+CURRENT_HOST=$(scutil --get LocalHostName 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+for host in "${HOSTS[@]}"; do
+    if [ "$host" = "$CURRENT_HOST" ]; then
+        continue
+    fi
+    if prompt "Copy SSH key to $host?"; then
+        ssh-copy-id -i "$KEY_FILE" "clay@$host" || warn "Could not copy key to $host (is it online?)"
+    fi
+done
+
 success "SSH setup complete"
