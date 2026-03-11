@@ -10,11 +10,10 @@ claude
 tailscale
 rectangle
 vlc
+bitwarden
 
 # Productivity
 google-drive
 microsoft-excel
 microsoft-word
 microsoft-powerpoint
-microsoft-outlook
-microsoft-onenote
