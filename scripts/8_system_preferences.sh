@@ -119,11 +119,26 @@ if command -v tailscale &>/dev/null; then
     # Enable auto-connect so Tailscale survives sleep/reboot
     sudo tailscale set --auto-update
     success "Tailscale: auto-update enabled"
-    log "NOTE: Enable 'Start at Login' in the Tailscale menu bar app"
     log "NOTE: Use 'tailscale login' (not 'tailscale up') to reauthenticate"
 else
     warn "Tailscale not installed yet, skipping Tailscale config"
 fi
+
+# Login items: apps that should start at login
+log "Configuring login items..."
+LOGIN_APPS=(
+    "/Applications/Google Drive.app"
+    "/Applications/Amphetamine.app"
+    "/Applications/Tailscale.app"
+    "/Applications/Rectangle.app"
+)
+for app in "${LOGIN_APPS[@]}"; do
+    APP_NAME=$(basename "$app" .app)
+    if [ -d "$app" ]; then
+        osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$app\", hidden:false}" 2>/dev/null || true
+        success "$APP_NAME: start at login enabled"
+    fi
+done
 
 # Browser password management: disable built-in, force Bitwarden extension
 log "Configuring browsers to use Bitwarden (disabling built-in password/autofill)..."
