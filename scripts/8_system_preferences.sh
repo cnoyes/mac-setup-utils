@@ -147,12 +147,22 @@ done
 # Browser password management: disable built-in, force Bitwarden extension
 log "Configuring browsers to use Bitwarden (disabling built-in password/autofill)..."
 
-# Safari: disable all autofill
+# Safari: disable all autofill and password saving
 defaults write com.apple.Safari AutoFillPasswords -bool false
 defaults write com.apple.Safari AutoFillCreditCardData -bool false
 defaults write com.apple.Safari AutoFillFromAddressBook -bool false
 defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
-success "Safari: autofill disabled"
+# Disable iCloud Keychain password suggestions in Safari
+defaults write com.apple.Safari SuggestPasswords -bool false
+defaults write com.apple.Safari PasswordBreachDetectionOn -bool false
+success "Safari: autofill and password saving disabled"
+
+# Default browser: Firefox
+if [ -d "/Applications/Firefox.app" ]; then
+    log "Setting Firefox as default browser..."
+    open -a "Firefox" --args -setDefaultBrowser 2>/dev/null || true
+    success "Firefox: set as default browser"
+fi
 
 # Chrome: disable password manager and autofill, force-install Bitwarden extension
 CHROME_MANAGED="/Library/Managed Preferences/com.google.Chrome.plist"
