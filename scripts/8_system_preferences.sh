@@ -89,6 +89,10 @@ log "Disabling auto-correct..."
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 success "Auto-correct disabled"
 
+# Terminal: close window when shell exits
+defaults write com.apple.Terminal ShellExitAction -int 0
+success "Terminal: close window on exit"
+
 # Dark mode (auto-switch with sunset/sunrise)
 log "Enabling dark mode with auto-switching..."
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
