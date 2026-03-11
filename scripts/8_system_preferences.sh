@@ -51,6 +51,23 @@ log "Disabling auto-correct..."
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 success "Auto-correct disabled"
 
+# Dark mode
+log "Enabling dark mode..."
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+success "Dark mode enabled"
+
+# Night Shift: sunset to sunrise
+log "Enabling Night Shift..."
+CORE_BRIGHTNESS="/private/var/root/Library/Preferences/com.apple.CoreBrightness.plist"
+if [ -f "$CORE_BRIGHTNESS" ]; then
+    # Night Shift requires CoreBrightness — schedule sunset to sunrise
+    sudo defaults write "$CORE_BRIGHTNESS" CBUser-0 -dict-add CBBlueLightReductionSchedule '{ AutoBlueLightReductionEnabled = 1; AutoBlueLightReductionMode = 1; }'
+    success "Night Shift: sunset to sunrise"
+else
+    warn "Night Shift: could not configure automatically"
+    log "Enable manually: System Settings → Displays → Night Shift → Sunset to Sunrise"
+fi
+
 # Tailscale: set hostname and enable auto-start
 if command -v tailscale &>/dev/null; then
     log "Configuring Tailscale..."
