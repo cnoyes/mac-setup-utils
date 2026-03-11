@@ -123,7 +123,7 @@ EOF
         success "Added nvm to ~/.zshrc"
     fi
 
-    # Load nvm for this session (disable set -u — nvm.sh uses uninitialized vars)
+    # Load nvm for this session (nvm.sh uses uninitialized vars, so disable set -u)
     export NVM_DIR="$HOME/.nvm"
     set +u
     [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"
@@ -133,11 +133,9 @@ EOF
     if command -v nvm &> /dev/null; then
         if prompt "Install Node.js LTS via nvm?"; then
             log "Installing Node.js LTS..."
-            set +eu
             nvm install --lts
             nvm use --lts
             nvm alias default 'lts/*'
-            set -eu
             success "Node.js LTS installed and set as default"
         fi
     fi

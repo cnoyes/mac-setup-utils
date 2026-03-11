@@ -11,9 +11,7 @@
 #   ./install.sh --profile thin-client   # Use thin-client profile
 #
 
-set -e  # Exit on error
 set -u  # Exit on undefined variable
-set -o pipefail  # Exit on pipe failure
 
 # Colors
 GREEN='\033[0;32m'
