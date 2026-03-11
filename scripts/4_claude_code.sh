@@ -12,18 +12,14 @@ if command -v claude &> /dev/null; then
     CLAUDE_VERSION=$(claude --version 2>/dev/null || echo "unknown")
     log "Version: $CLAUDE_VERSION"
 else
-    log "Claude Code not found"
-    echo ""
-    echo "To install Claude Code:"
-    echo "  1. Visit: https://claude.ai/download"
-    echo "  2. Download the installer for macOS"
-    echo "  3. Follow the installation instructions"
-    echo ""
-    if prompt "Open Claude Code download page in browser?"; then
-        open "https://claude.ai/download"
+    log "Claude Code not found, installing via npm..."
+    if command -v npm &> /dev/null; then
+        npm install -g @anthropic-ai/claude-code
+        success "Claude Code installed"
+    else
+        warn "npm not available — install Claude Code manually: npm install -g @anthropic-ai/claude-code"
+        return 0
     fi
-    warn "Please install Claude Code manually and re-run this script"
-    return 0
 fi
 
 # Setup GitHub CLI authentication (needed for Claude Code integrations)
