@@ -70,7 +70,9 @@ log "Configuring Finder..."
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
-success "Finder: extensions, path bar, status bar enabled"
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+defaults write com.apple.finder FXArrangeGroupViewBy -string "Name"
+success "Finder: extensions, path bar, status bar, list view (alphabetical)"
 
 # Trackpad: tap to click, three finger drag
 log "Configuring trackpad..."
@@ -175,9 +177,10 @@ if [ -d "/Applications/Google Chrome.app" ]; then
     sudo defaults write "$CHROME_MANAGED" PasswordManagerEnabled -bool false
     sudo defaults write "$CHROME_MANAGED" AutofillAddressEnabled -bool false
     sudo defaults write "$CHROME_MANAGED" AutofillCreditCardEnabled -bool false
-    # Force-install Bitwarden extension (nngceckbapebfimnlniiiahkandclblb)
-    sudo defaults write "$CHROME_MANAGED" ExtensionInstallForcelist -array "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"
-    success "Chrome: autofill disabled, Bitwarden extension force-installed"
+    # Force-install and pin Bitwarden extension
+    sudo defaults write "$CHROME_MANAGED" ExtensionSettings -dict \
+        "nngceckbapebfimnlniiiahkandclblb" '<dict><key>installation_mode</key><string>force_installed</string><key>update_url</key><string>https://clients2.google.com/service/update2/crx</string><key>toolbar_pin</key><string>force_pinned</string></dict>'
+    success "Chrome: autofill disabled, Bitwarden pinned to toolbar"
 fi
 
 # Firefox: disable password manager and autofill, install Bitwarden extension
@@ -193,7 +196,8 @@ if [ -d "/Applications/Firefox.app" ]; then
     "ExtensionSettings": {
       "{446900e4-71c2-419f-a6a7-df9c091e268b}": {
         "installation_mode": "force_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi",
+        "default_area": "navbar"
       }
     }
   }
